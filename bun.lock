@@ -1,8 +1,7 @@
 {
-  "lockfileVersion": 1,
+  "lockfileVersion": 0,
   "workspaces": {
     "": {
-      "name": "middle-ai",
       "dependencies": {
         "@hookform/resolvers": "^4.1.2",
         "@radix-ui/react-avatar": "^1.1.3",
