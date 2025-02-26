@@ -1,23 +1,17 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "../../logo";
 
 export function MainNav() {
   const pathname = usePathname();
 
   return (
     <div className="flex">
-      <Link href="/" className="mr-8 flex items-center space-x-2">
-        <Image
-          src="/images/logo.png"
-          alt="logo"
-          width={50}
-          height={50}
-          className="rounded-md"
-        />
-      </Link>
+      <div className="mr-8">
+      <Logo/>
+      </div>
       <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
         <Link
           href="/about"
