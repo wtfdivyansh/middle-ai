@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme.provider";
+import { RoutesContext } from "@/context/routes.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,9 @@ export const metadata: Metadata = {
   description: "Your AI Middleman for Risk-Free Deals. Smart, Secure, and Seamless Transactions.",
 };
 
+const protectedRoutes = ["/dashboard"];
+const publicRoutes = ["/", "/auth"];
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,6 +32,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <RoutesContext
+          protectedRoutes={protectedRoutes}
+          publicRoutes={publicRoutes}
+        >
         <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -36,6 +44,7 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
+          </RoutesContext>
       </body>
     </html>
   );

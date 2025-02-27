@@ -5,33 +5,81 @@ import { motion, AnimatePresence } from "framer-motion";
 import { OTPInput } from './otp-input';
 import PHNInput from './phn-input';
 import { Button } from '../ui/button';
+import account from '@/lib/appwrite/init';
+import { ID } from 'appwrite';
+import useLocalStorage from '@/hooks/use-local';
+import { Loader } from 'lucide-react';
 
 export default function SignInBtn() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+    const [loading, setLoading] = useState(false);
+    const [storedPhn, setStoredPhn] = useLocalStorage('mai-phn', '');
+    const [storedUserId, setUserId] = useLocalStorage('mai-uid', '');
+    const [phone, setPhone] = useState(storedPhn as string);
+    const [uid, setUID] = useState(storedUserId as string);
 
-    const handleComplete = (otp: string) => {
+    const handleOTP = async (otp: string) => {
         console.log("Completed OTP:", otp);
-        if (otp === "123456") {
-            setStatus("success");
-        } else {
-            setStatus("error");
+        try {
+            if(otp && uid){
+                const session = await account.createSession(
+                    uid,
+                    otp
+                );
+                if(session){
+                    setStatus("success");
+                    setUID('');
+                    console.log(session);
+                } else {
+                    setStatus("error");
+                    console.log(session);
+                }
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
 
+    const handleOTPbtn = async () => {
+        try {
+            if (phone.length !== 0) {
+                console.log('phone no:', phone);
+                setStoredPhn(phone);
+                setLoading(true);
+                const token = await account.createPhoneToken(
+                    ID.unique(),
+                    phone
+                );
+                console.log('token:', token)
+                if (token) {
+                    setUserId(token.userId);
+                    setLoading(false);
+                    setUID(token.userId);
+                    console.log(uid);
+                    console.log('token:', token)
+                }
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error("Error creating phone token:", error);
+        }
+    }
+
     return (
         <div className="flex flex-col items-center">
-            <div className='relative w-3/4 items-center justify-center'>
-            <PHNInput/>
-            <Button className='w-full mt-5'>
-                Send OTP
+            {uid.length === 0 ? <div className='relative w-3/4 items-center justify-center'>
+            <PHNInput value={phone} onChange={setPhone} />
+            <Button className='w-full mt-5' onClick={handleOTPbtn}>
+                {loading ? <Loader className='animate-spin size-5'/> : ("Send OTP")}
             </Button>
-            </div>
-            {/* <div className="relative w-full items-center justify-center">
+            </div> : (
+                <>
+                <div className="relative w-full items-center justify-center">
                 <OTPInput
                     length={6}
                     variant="default"
                     status={status}
-                    onComplete={handleComplete}
+                    onComplete={handleOTP}
                 />
                 <AnimatePresence>
                     {status === "error" && (
@@ -72,7 +120,9 @@ export default function SignInBtn() {
                 >
                     Resend
                 </motion.button>
-            </motion.p> */}
+            </motion.p>
+            </>
+            )}
         </div>
     );
 }

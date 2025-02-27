@@ -3,13 +3,17 @@
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { ChevronDownIcon, PhoneIcon } from "lucide-react";
-import React, { useId, useState } from "react";
+import React, { useId } from "react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 
-export default function PHNInput() {
+type PHNInputProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function PHNInput({ value, onChange }: PHNInputProps) {
   const id = useId();
-  const [value, setValue] = useState("");
 
   return (
     <div className="*:not-first:mt-2" dir="ltr">
@@ -22,7 +26,7 @@ export default function PHNInput() {
         id={id}
         placeholder="Enter phone number"
         value={value}
-        onChange={(newValue) => setValue(newValue ?? "")}
+        onChange={(newValue) => onChange(newValue ?? "")}
       />
     </div>
   );
