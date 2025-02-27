@@ -3,7 +3,7 @@ import { Button } from "../../ui/button";
 export default function StressFree() {
     return (
         <div className="flex justify-center w-screen mb-10">
-            <div className="container max-w-[90%] sm:mx-auto border bg-[#121212] flex-1 py-6">
+            <div className="container sm:mx-auto border bg-[#121212] flex-1 py-6">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold py-4 text-center glow flex-wrap flex-1">
                     Streamline Your Workflow
                 </h1>
