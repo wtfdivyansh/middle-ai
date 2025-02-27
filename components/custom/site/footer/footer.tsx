@@ -32,7 +32,7 @@ export function Footer() {
       </div>
 
       {/* Large Text - Closer to Border */}
-      <div className="flex w-full items-center justify-center overflow-hidden leading-none">
+      <div className="hidden lg:flex w-full items-center justify-center overflow-hidden leading-none">
         <h1 className="font-bold text-[260px] tracking-wide text-muted text-center translate-y-1/3">
           Middle-Ai
         </h1>
