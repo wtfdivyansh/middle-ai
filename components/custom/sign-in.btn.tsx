@@ -9,6 +9,7 @@ import account from '@/lib/appwrite/init';
 import { ID } from 'appwrite';
 import useLocalStorage from '@/hooks/use-local';
 import { Loader } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
 export default function SignInBtn() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -27,12 +28,14 @@ export default function SignInBtn() {
                     otp
                 );
                 if(session){
+                    console.log(session);
                     setStatus("success");
                     setUID('');
-                    console.log(session);
+                    redirect("/dashboard");
                 } else {
                     setStatus("error");
                     console.log(session);
+                    redirect("/auth");
                 }
             }
         } catch (error) {
