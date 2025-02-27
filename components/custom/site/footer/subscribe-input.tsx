@@ -33,7 +33,7 @@ export function SubscribeInput() {
     <div>
       <div className="flex justify-center">
         {isSubmitted ? (
-          <div className="border border-[#2C2C2C] font-sm text-primary h-11 w-[330px] flex items-center py-1 px-3 justify-between">
+          <div className="border border-[#2C2C2C] font-sm text-primary h-11 w-[330px] max-w-[90%] flex items-center py-1 px-3 justify-between">
             <p>Subscribed</p>
 
             <svg

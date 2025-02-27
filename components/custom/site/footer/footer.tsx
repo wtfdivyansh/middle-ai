@@ -8,7 +8,7 @@ import { SubscribeInput } from "./subscribe-input";
 export function Footer() {
   return (
     <footer className="relative w-full flex flex-col items-center border-t px-4 md:px-6 pt-8 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none h-full">
         <NoiseBg
           patternSize={150}
           patternScaleX={3}
