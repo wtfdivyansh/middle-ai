@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { OTPInput } from './otp-input';
 import PHNInput from './phn-input';
+import { Button } from '../ui/button';
 
 export default function SignInBtn() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -20,6 +21,9 @@ export default function SignInBtn() {
         <div className="flex flex-col items-center">
             <div className='relative w-3/4 items-center justify-center'>
             <PHNInput/>
+            <Button className='w-full mt-5'>
+                Send OTP
+            </Button>
             </div>
             {/* <div className="relative w-full items-center justify-center">
                 <OTPInput

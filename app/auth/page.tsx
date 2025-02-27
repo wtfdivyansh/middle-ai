@@ -11,14 +11,14 @@ export default function Page() {
 
       <main className="flex-1 flex items-center justify-center px-6 md:px-0">
         <div className="w-full max-w-md text-center">
-          <h1 className="font-medium text-3xl bg-gradient-to-r from-primary dark:via-primary dark:to-[#848484] to-[#000] inline-block text-transparent bg-clip-text">
+          <h1 className="font-medium text-4xl inline-block bg-clip-text">
             Login to middle-ai.
           </h1>
 
-          <p className="font-medium text-2xl text-[#878787] mt-4">
-            Automate financial tasks, <br />
-            stay organized, and make <br />
-            informed decisions effortlessly.
+          <p className="font-medium text-xl text-muted-foreground mt-4 text-center">
+            Automate Middleman, <br />
+            Deal Safely, and Make <br />
+           Secured Trades Effortlessly.
           </p>
 
           <div className="mt-6">

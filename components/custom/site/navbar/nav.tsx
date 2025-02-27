@@ -35,6 +35,17 @@ export function MainNav() {
         >
           Features
         </Link>
+        <Link
+          href="/pricing"
+          className={cn(
+            "transition-colors hover:text-foreground/80",
+            pathname?.startsWith("/pricing")
+              ? "text-foreground"
+              : "text-foreground/60",
+          )}
+        >
+          Pricing
+        </Link>
       </nav>
     </div>
   );
