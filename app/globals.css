@@ -80,7 +80,11 @@
   .container{
     max-width: 95% !important;
   }
-  
+}
+@media screen and (max-width: 380px) {
+  .container{
+    max-width: 90% !important;
+  }
 }
 
 
