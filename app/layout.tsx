@@ -36,7 +36,7 @@ export default function RootLayout({
           protectedRoutes={protectedRoutes}
           publicRoutes={publicRoutes}
         >
-        <ThemeProvider
+          <ThemeProvider
             attribute="class"
             defaultTheme="dark"
             enableSystem
@@ -44,7 +44,7 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
-          </RoutesContext>
+        </RoutesContext>
       </body>
     </html>
   );
