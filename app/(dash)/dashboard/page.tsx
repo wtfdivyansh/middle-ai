@@ -1,10 +1,10 @@
-import OnboardingComp from '@/components/custom/onboarding-comp'
+import OnboardingPopUp from '@/components/custom/onboarding/pop-up'
 import React from 'react'
 
 export default function page() {
   return (
     <div>
-      <OnboardingComp/>
+      <OnboardingPopUp/>
     </div>
   )
 }
