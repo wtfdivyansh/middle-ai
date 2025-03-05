@@ -1,21 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 
-import { Line, LineChart, XAxis } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { Avatar } from "@/components/ui/avatar"
-
-// Updated chartData
-const chartData = [
-  { month: "Jan", deals: 1.2, sent: 0.8 },
-  { month: "Feb", deals: 1.8, sent: 1.2 },
-  { month: "Mar", deals: 1.5, sent: 2.0 },
-  { month: "Apr", deals: 2.2, sent: 1.5 },
-  { month: "May", deals: 1.8, sent: 1.0 },
-  { month: "Jun", deals: 2.5, sent: 1.8 },
-  { month: "Jul", deals: 2.0, sent: 2.2 },
-]
 
 // Updated recentActivities
 const recentActivities = [
@@ -122,46 +109,6 @@ export default function ActivityDashboard() {
                 <p className="text-sm text-muted-foreground mt-1"> $42,980 USD</p>
               </div>
             </div>
-
-            <ChartContainer
-              config={{
-                deals: {
-                  label: "Deals",
-                  color: "hsl(220, 70%, 50%)", // Blue
-                },
-                sent: {
-                  label: "Sent",
-                  color: "hsl(160, 60%, 45%)", // Green
-                },
-              }}
-              className="min-h-[350px] text-gray-400 mt-6"
-            >
-              <LineChart data={chartData} >
-                <XAxis
-                  dataKey="month"
-                  axisLine={false}
-                  tickLine={false}
-                  // tick={{ fill: "hsl(var(--muted-foreground))" }}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Line
-                  type="monotone"
-                  dataKey="deals"
-                  stroke="#ef4444"
-                  strokeWidth={3}
-                  dot={{ fill: "#ef4444", r: 4 }}
-                  activeDot={{ r: 6, strokeWidth: 2 }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="sent"
-                  stroke="#fda5a5"
-                  strokeWidth={3}
-                  dot={{ fill: "#fda5a5", r: 4 }}
-                  activeDot={{ r: 6, strokeWidth: 2 }}
-                />
-              </LineChart>
-            </ChartContainer>
           </CardContent>
         </Card>
       </div>
