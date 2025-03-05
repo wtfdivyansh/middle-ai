@@ -11,7 +11,7 @@ export default function OnboardingPopUp() {
         <h1 className='text-xl font-bold'>Complete your Onboarding Process</h1>
             <span className=' text-muted-foreground'>Continue to complete your onboarding process to access all features instantly.Continue to complete your onboarding process to access all features instantly.</span>
         </CardContent>
-        <CardFooter className='py-0 gap-5'>
+        <CardFooter className='py-0 gap-5 flex flex-col md:flex-row items-start '>
             <Button size={"lg"}>Continue Now
                 <MoveRight/>
             </Button>
