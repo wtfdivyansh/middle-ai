@@ -51,13 +51,13 @@ export function Chat({
     },
   });
 
-  const { data: votes } = useSWR<Array<Vote>>(
-    `/api/vote?chatId=${id}`,
-    fetcher,
-  );
+  // const { data: votes } = useSWR<Array<Vote>>(
+  //   `/api/vote?chatId=${id}`,
+  //   fetcher,
+  // );
 
   const [attachments, setAttachments] = useState<Array<Attachment>>([]);
-
+console.log(messages)
   return (
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
@@ -70,7 +70,7 @@ export function Chat({
         <Messages
           chatId={id}
           isLoading={isLoading}
-          votes={votes}
+          votes={[]}
           messages={messages}
           setMessages={setMessages}
           reload={reload}

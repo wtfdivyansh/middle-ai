@@ -3,7 +3,9 @@ import { DEFAULT_CHAT_MODEL } from '@/lib/ai/models';
 import { generateUUID } from '@/lib/utils';
 import { Chat } from '@/components/custom/chat/chat';
 
+
 export default async function Page() {
+
   const id = generateUUID();
 
   const cookieStore = await cookies();
