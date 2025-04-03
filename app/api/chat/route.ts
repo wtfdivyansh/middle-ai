@@ -7,6 +7,7 @@ import {
 import { myProvider } from "@/lib/ai/models";
 import { systemPrompt } from "@/lib/ai/prompts";
 import {
+  deleteChatById,
   // deleteChatById,
   getChatById,
   saveChat,
@@ -18,6 +19,8 @@ import {
   sanitizeResponseMessages,
 } from "@/lib/utils";
 import { generateTitleFromUserMessage } from "@/lib/actions";
+import { getLoggedInUser } from "@/lib/appwrite/server";
+import { cookies } from "next/headers";
 //   import { getWeather } from '@/lib/ai/tools/get-weather';
 
 export const maxDuration = 60;
@@ -31,11 +34,12 @@ export async function POST(request: Request) {
     await request.json();
 
 
-  // const session = await auth();
+  const session = await getLoggedInUser();
 
-  // if (!session || !session.user || !session.user.id) {
-  //   return new Response('Unauthorized', { status: 401 });
-  // }
+
+  if (!session) {
+    return new Response('Unauthorized', { status: 401 });
+  }
 
   const userMessage = getMostRecentUserMessage(messages);
 
@@ -43,18 +47,17 @@ export async function POST(request: Request) {
   if (!userMessage) {
     return new Response("No user message found", { status: 400 });
   }
-  // console.log("chatId", id);
-  // const chat = await getChatById({ id });
+  console.log("chatId", id);
+  const chat = await getChatById({ id });
 
-  // if (!chat) {
-  //   const title = await generateTitleFromUserMessage({ message: userMessage });
-  //   const uid = generateUUID();
-  //   await saveChat({ id, userId: uid, title });
-  // }
+  if (!chat) {
+    const title = await generateTitleFromUserMessage({ message: userMessage });
+    await saveChat({ id: id, userId: session.$id!, title });
+  }
 
-  // await saveMessages({
-  //   messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
-  // });
+  await saveMessages({
+    messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
+  });
 
   return createDataStreamResponse({
     execute: (dataStream) => {
@@ -91,17 +94,17 @@ export async function POST(request: Request) {
               reasoning,
             });
 
-            // await saveMessages({
-            //   messages: sanitizedResponseMessages.map((message) => {
-            //     return {
-            //       id: message.id,
-            //       chatId: id,
-            //       role: message.role,
-            //       content: message.content,
-            //       createdAt: new Date(),
-            //     };
-            //   }),
-            // });
+            await saveMessages({
+              messages: sanitizedResponseMessages.map((message) => {
+                return {
+                  id: message.id,
+                  chatId: id,
+                  role: message.role,
+                  content: message.content,
+                  createdAt: new Date(),
+                };
+              }),
+            });
           } catch (error) {
             console.error("ERROR OCCURED", error);
             console.error("Failed to save chat");
@@ -126,33 +129,33 @@ export async function POST(request: Request) {
   });
 }
 
-//   export async function DELETE(request: Request) {
-//     const { searchParams } = new URL(request.url);
-//     const id = searchParams.get('id');
+  export async function DELETE(request: Request) {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
 
-//     if (!id) {
-//       return new Response('Not Found', { status: 404 });
-//     }
+    if (!id) {
+      return new Response('Not Found', { status: 404 });
+    }
 
-//     const session = await auth();
+    const session = await getLoggedInUser()
 
-//     if (!session || !session.user) {
-//       return new Response('Unauthorized', { status: 401 });
-//     }
+    if (!session ) {
+      return new Response('Unauthorized', { status: 401 });
+    }
 
-//     try {
-//       const chat = await getChatById({ id });
+    try {
+      const chat = await getChatById({ id });
 
-//       if (chat.userId !== session.user.id) {
-//         return new Response('Unauthorized', { status: 401 });
-//       }
+      if (chat.userId !== session.$id) {
+        return new Response('Unauthorized', { status: 401 });
+      }
 
-//       await deleteChatById({ id });
+      await deleteChatById({ id });
 
-//       return new Response('Chat deleted', { status: 200 });
-//     } catch (error) {
-//       return new Response('An error occurred while processing your request', {
-//         status: 500,
-//       });
-//     }
-//   }
+      return new Response('Chat deleted', { status: 200 });
+    } catch (error) {
+      return new Response('An error occurred while processing your request', {
+        status: 500,
+      });
+    }
+  }

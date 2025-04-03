@@ -1,8 +1,8 @@
 'use client';
 
 import type { Attachment, Message } from 'ai';
-import { useChat } from 'ai/react';
-import { useState } from 'react';
+import { useChat } from '@ai-sdk/react';
+import { useEffect, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 
 // import { ChatHeader } from '@/components/chat-header';
@@ -11,6 +11,7 @@ import { fetcher, generateUUID } from '@/lib/utils';
 import { toast } from 'sonner';
 import { Messages } from '../msgs/messages';
 import { MultimodalInput } from './multimodal-input';
+
 
 export function Chat({
   id,
@@ -57,7 +58,11 @@ export function Chat({
   // );
 
   const [attachments, setAttachments] = useState<Array<Attachment>>([]);
-console.log(messages)
+
+  useEffect(() => {
+      window.history.replaceState({}, "", `/chat/${id}`);
+  }, [])
+
   return (
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">

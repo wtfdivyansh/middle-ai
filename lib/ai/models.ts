@@ -8,6 +8,7 @@ import {
 
 export const DEFAULT_CHAT_MODEL: string = 'title-model';
 
+
 export const myProvider = customProvider({
   languageModels: {
     'chat-model-small': openai('gpt-4o-mini'),

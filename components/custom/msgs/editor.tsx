@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 // import { deleteTrailingMessages } from '@/app/(chat)/actions';
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { deleteTrailingMessages } from "@/lib/actions";
 
 export type MessageEditorProps = {
   message: Message;
@@ -74,9 +75,9 @@ export function MessageEditor({
           onClick={async () => {
             setIsSubmitting(true);
 
-            // await deleteTrailingMessages({
-            //   id: message.id,
-            // });
+            await deleteTrailingMessages({
+              id: message.id,
+            });
 
             setMessages((messages) => {
               const index = messages.findIndex((m) => m.id === message.id);
