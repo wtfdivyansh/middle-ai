@@ -242,6 +242,7 @@ function PureMultimodalInput({
           <StopButton stop={stop} setMessages={setMessages} />
         ) : (
           <SendButton
+            disabled={input.length === 0 || messages.length === 0}
             input={input}
             submitForm={submitForm}
             // uploadQueue={uploadQueue}
@@ -288,10 +289,12 @@ function PureStopButton({
 const StopButton = memo(PureStopButton);
 
 function PureSendButton({
+  disabled,
   submitForm,
   input,
 //   uploadQueue,
 }: {
+  disabled: boolean;
   submitForm: () => void;
   input: string;
 //   uploadQueue: Array<string>;
@@ -303,7 +306,7 @@ function PureSendButton({
         event.preventDefault();
         submitForm();
       }}
-      disabled={input.length === 0}
+      disabled={disabled}
     >
       <ArrowUpIcon size={14} />
     </Button>
