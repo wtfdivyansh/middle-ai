@@ -8,7 +8,7 @@ export async function createSessionClient() {
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
 
   const session = (await cookies()).get("session");
-  console.log("session", session);
+
 
   if (!session || !session.value) {
     throw new Error("No session");
@@ -40,7 +40,6 @@ export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
     const user = await account.get();
-    console.log("user", user);
     return user;
   } catch (error) {
     return null;

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { account } from "@/lib/appwrite/init";
 import { getLoggedInUser } from "@/lib/appwrite/server";
 import { useState, useEffect } from "react";
 

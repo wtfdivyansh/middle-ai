@@ -2,12 +2,10 @@
 
 import type { Attachment, Message } from 'ai';
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-
 // import { ChatHeader } from '@/components/chat-header';
-import type { Vote } from '@/lib/db/schema';
-import { fetcher, generateUUID } from '@/lib/utils';
+import {  generateUUID } from '@/lib/utils';
 import { toast } from 'sonner';
 import { Messages } from '../msgs/messages';
 import { MultimodalInput } from './multimodal-input';
@@ -59,9 +57,6 @@ export function Chat({
 
   const [attachments, setAttachments] = useState<Array<Attachment>>([]);
 
-  useEffect(() => {
-      window.history.replaceState({}, "", `/chat/${id}`);
-  }, [])
 
   return (
     <>
@@ -75,7 +70,7 @@ export function Chat({
         <Messages
           chatId={id}
           isLoading={isLoading}
-          votes={[]}
+
           messages={messages}
           setMessages={setMessages}
           reload={reload}

@@ -1,4 +1,5 @@
 import { Chat } from "@/components/custom/chat/chat";
+import { DEFAULT_CHAT_MODEL } from "@/lib/ai/models";
 import { getMessagesByChatId } from "@/lib/db/queries";
 import { convertToUIMessages } from "@/lib/utils";
 
@@ -15,7 +16,7 @@ export default async function ChatPage({
     <Chat
       id={chatId}
       initialMessages={initialMessages}
-      selectedChatModel={""}
+      selectedChatModel={DEFAULT_CHAT_MODEL}
       isReadonly={false}
     />
   );

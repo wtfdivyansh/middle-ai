@@ -3,6 +3,7 @@ import {
   createDataStreamResponse,
   smoothStream,
   streamText,
+  convertToCoreMessages,
 } from "ai";
 import { myProvider } from "@/lib/ai/models";
 import { systemPrompt } from "@/lib/ai/prompts";
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
     selectedChatModel,
   }: { id: string; messages: Array<Message>; selectedChatModel: string } =
     await request.json();
-
+  
 
   const session = await getLoggedInUser();
 
@@ -123,7 +124,7 @@ export async function POST(request: Request) {
         sendReasoning: true,
       });
     },
-    onError: () => {
+    onError: (error) => {
       return "Oops, an error occured!";
     },
   });
